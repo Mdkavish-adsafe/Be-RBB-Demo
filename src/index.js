@@ -11,11 +11,15 @@ const app = new Hono();
 // Global middleware
 app.use('*', secureHeaders());
 
-// CORS — configured per-request from env
+// CORS — configured per-request from env (supports single origin, comma-separated list, or wildcard)
 app.use('/api/*', async (c, next) => {
-  const allowedOrigin = c.env.ALLOWED_ORIGIN || 'http://localhost:5173';
+  const rawOrigin = c.env.ALLOWED_ORIGIN || 'http://localhost:5173';
+  const origin = rawOrigin.includes(',')
+    ? rawOrigin.split(',').map((o) => o.trim()).filter(Boolean)
+    : rawOrigin.trim();
+
   const corsMiddleware = cors({
-    origin: allowedOrigin,
+    origin,
     allowMethods: ['GET', 'POST', 'OPTIONS'],
     allowHeaders: ['Content-Type'],
     maxAge: 86400,
