@@ -44,14 +44,16 @@ export async function verifyTurnstileToken(token, env) {
       return { success: false, error: 'Bot verification failed. Please try again.' };
     }
 
-    // Optional: Validate hostname (permits localhost/127.0.0.1 during local testing)
+    // Optional: Validate hostname if explicitly configured
     if (
       env.TURNSTILE_EXPECTED_HOSTNAME &&
       result.hostname !== env.TURNSTILE_EXPECTED_HOSTNAME &&
+      !result.hostname?.endsWith('.workers.dev') &&
+      !result.hostname?.endsWith('.pages.dev') &&
       result.hostname !== 'localhost' &&
       result.hostname !== '127.0.0.1'
     ) {
-      console.error('Hostname mismatch:', result.hostname);
+      console.error('Hostname mismatch:', result.hostname, 'expected:', env.TURNSTILE_EXPECTED_HOSTNAME);
       return { success: false, error: 'Verification hostname mismatch.' };
     }
 
