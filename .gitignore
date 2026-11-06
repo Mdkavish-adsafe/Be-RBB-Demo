@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Cloudflare Wrangler
+.wrangler/
+
+# Environment secrets
+.dev.vars
+.dev.vars.local
+.dev.vars.*
+!.dev.vars.example
+
+# Test coverage
+coverage/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sw?
+
+# Logs
+*.log
+npm-debug.log*

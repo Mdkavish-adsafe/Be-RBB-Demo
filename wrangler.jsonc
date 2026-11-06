@@ -1,0 +1,20 @@
+{
+  // Rising Beyond Borders – Contact Form API
+  "name": "rbb-contact-api",
+  "main": "src/index.js",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Environment variables (non-secret, can be overridden per environment)
+  "vars": {
+    "ALLOWED_ORIGIN": "http://localhost:5173",
+    "TURNSTILE_EXPECTED_HOSTNAME": "",
+    "TURNSTILE_EXPECTED_ACTION": ""
+  }
+
+  // Secrets (set via `wrangler secret put`):
+  // - TURNSTILE_SECRET_KEY
+  // - RESEND_API_KEY
+  // - RESEND_FROM
+  // - ADMIN_EMAIL
+}

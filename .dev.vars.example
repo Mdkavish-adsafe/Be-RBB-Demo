@@ -1,0 +1,17 @@
+# Cloudflare Turnstile – Use testing keys for local development
+# Always-pass key: 1x0000000000000000000000000000000AA
+# Always-fail key: 2x0000000000000000000000000000000AA
+# Forced interactive key: 3x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+
+# Resend API
+RESEND_API_KEY=re_your_resend_api_key_here
+RESEND_FROM=onboarding@resend.dev
+ADMIN_EMAIL=your-admin@example.com
+
+# Frontend origin (for CORS)
+ALLOWED_ORIGIN=http://localhost:5173
+
+# Optional: hostname and action validation for Turnstile
+TURNSTILE_EXPECTED_HOSTNAME=
+TURNSTILE_EXPECTED_ACTION=
