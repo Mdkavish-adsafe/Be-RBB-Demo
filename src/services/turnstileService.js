@@ -16,10 +16,12 @@ export async function verifyTurnstileToken(token, env) {
     formData.append('secret', secretKey);
     formData.append('response', token);
 
+    console.log('[Turnstile] Verifying token with Cloudflare...');
     const response = await fetch(SITEVERIFY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: formData.toString(),
+      signal: AbortSignal.timeout(10000),
     });
 
     if (!response.ok) {

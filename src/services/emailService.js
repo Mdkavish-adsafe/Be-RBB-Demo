@@ -40,6 +40,7 @@ export async function sendAdminNotification(formData, env) {
         html: htmlBody,
         text: textBody,
       }),
+      signal: AbortSignal.timeout(10000),
     });
 
     if (!response.ok) {
