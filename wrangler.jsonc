@@ -7,7 +7,7 @@
 
   // Environment variables (non-secret, can be overridden per environment)
   "vars": {
-    "ALLOWED_ORIGIN": "http://localhost:5173",
+    "ALLOWED_ORIGIN": "https://fe-rbb-contact-form-demo.rising-beyond-border.workers.dev",
     "TURNSTILE_EXPECTED_HOSTNAME": "",
     "TURNSTILE_EXPECTED_ACTION": ""
   }
