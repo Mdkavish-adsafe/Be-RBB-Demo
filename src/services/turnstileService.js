@@ -1,11 +1,12 @@
 const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const DEFAULT_TURNSTILE_SECRET = '0x4AAAAAAF1y5PVbxCGxErP5lRiqaxfA60w';
 
-export async function verifyTurnstileToken(token, env) {
+export async function verifyTurnstileToken(token, env = {}) {
   if (!token) {
     return { success: false, error: 'Missing verification token.' };
   }
 
-  const secretKey = env.TURNSTILE_SECRET_KEY;
+  const secretKey = env.TURNSTILE_SECRET_KEY || DEFAULT_TURNSTILE_SECRET;
   if (!secretKey) {
     console.error('TURNSTILE_SECRET_KEY is not configured');
     return { success: false, error: 'Server configuration error.' };

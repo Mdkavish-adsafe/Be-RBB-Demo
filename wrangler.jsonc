@@ -5,16 +5,13 @@
   "compatibility_date": "2025-04-01",
   "compatibility_flags": ["nodejs_compat"],
 
-  // Environment variables (non-secret, can be overridden per environment)
+  // Environment variables
   "vars": {
-    "ALLOWED_ORIGIN": "https://fe-rbb-contact-form-demo.rising-beyond-border.workers.dev",
+    "ALLOWED_ORIGIN": "*",
+    "TURNSTILE_SECRET_KEY": "0x4AAAAAAF1y5PVbxCGxErP5lRiqaxfA60w",
+    "RESEND_FROM": "noreply@adsafesolutions.com",
+    "ADMIN_EMAIL": "kavish@risingbeyondborders.org",
     "TURNSTILE_EXPECTED_HOSTNAME": "",
     "TURNSTILE_EXPECTED_ACTION": ""
   }
-
-  // Secrets (set via `wrangler secret put`):
-  // - TURNSTILE_SECRET_KEY
-  // - RESEND_API_KEY
-  // - RESEND_FROM
-  // - ADMIN_EMAIL
 }

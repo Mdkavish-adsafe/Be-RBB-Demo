@@ -13,10 +13,15 @@ app.use('*', secureHeaders());
 
 // CORS — configured per-request from env (supports single origin, comma-separated list, or wildcard)
 app.use('/api/*', async (c, next) => {
-  const rawOrigin = c.env.ALLOWED_ORIGIN || 'http://localhost:5173';
-  const origin = rawOrigin.includes(',')
-    ? rawOrigin.split(',').map((o) => o.trim()).filter(Boolean)
-    : rawOrigin.trim();
+  const rawOrigin = c.env.ALLOWED_ORIGIN || '*';
+  let origin;
+  if (rawOrigin === '*' || !c.env.ALLOWED_ORIGIN) {
+    origin = (reqOrigin) => reqOrigin || '*';
+  } else if (rawOrigin.includes(',')) {
+    origin = rawOrigin.split(',').map((o) => o.trim()).filter(Boolean);
+  } else {
+    origin = rawOrigin.trim();
+  }
 
   const corsMiddleware = cors({
     origin,
