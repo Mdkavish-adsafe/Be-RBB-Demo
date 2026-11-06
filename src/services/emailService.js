@@ -105,8 +105,8 @@ export async function sendUserConfirmation(formData, env = {}) {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error('Resend user confirmation error:', response.status, errorBody);
-      return { success: false, error: 'User confirmation delivery failed.' };
+      console.error(`[Resend Auto-Reply Blocked/Failed] HTTP ${response.status}:`, errorBody);
+      return { success: false, error: errorBody || 'User confirmation delivery failed.' };
     }
 
     const result = await response.json();
