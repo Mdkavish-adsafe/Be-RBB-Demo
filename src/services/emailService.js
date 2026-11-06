@@ -3,9 +3,9 @@ const RESEND_API_URL = 'https://api.resend.com/emails';
 export async function sendAdminNotification(formData, env) {
   const { name, email, subject, message } = formData;
 
-  const apiKey = env.RESEND_API_KEY;
-  const fromAddress = env.RESEND_FROM;
-  const adminEmail = env.ADMIN_EMAIL;
+  const apiKey = env.RESEND_API_KEY ? env.RESEND_API_KEY.trim() : '';
+  const fromAddress = env.RESEND_FROM ? env.RESEND_FROM.trim().split(/\s+/)[0] : '';
+  const adminEmail = env.ADMIN_EMAIL ? env.ADMIN_EMAIL.trim() : '';
 
   if (!apiKey || !fromAddress || !adminEmail) {
     console.error('Email configuration is incomplete. Check RESEND_API_KEY, RESEND_FROM, ADMIN_EMAIL.');
@@ -60,8 +60,8 @@ export async function sendAdminNotification(formData, env) {
 export async function sendUserConfirmation(formData, env) {
   const { name, email, subject, message } = formData;
 
-  const apiKey = env.RESEND_API_KEY;
-  const fromAddress = env.RESEND_FROM;
+  const apiKey = env.RESEND_API_KEY ? env.RESEND_API_KEY.trim() : '';
+  const fromAddress = env.RESEND_FROM ? env.RESEND_FROM.trim().split(/\s+/)[0] : '';
 
   if (!apiKey || !fromAddress || !email) {
     console.error('Email configuration incomplete for user confirmation.');
