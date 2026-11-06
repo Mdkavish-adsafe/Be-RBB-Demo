@@ -66,6 +66,7 @@ export async function sendUserConfirmation(formData, env = {}) {
 
   const apiKey = (env.RESEND_API_KEY && env.RESEND_API_KEY.trim()) || DEFAULT_RESEND_KEY;
   const fromAddress = (env.RESEND_FROM && env.RESEND_FROM.trim().split(/\s+/)[0]) || DEFAULT_FROM;
+  const adminEmail = (env.ADMIN_EMAIL && env.ADMIN_EMAIL.trim()) || DEFAULT_ADMIN;
 
   if (!apiKey || !fromAddress || !email) {
     console.error('Email configuration incomplete for user confirmation.');
@@ -93,8 +94,8 @@ export async function sendUserConfirmation(formData, env = {}) {
       },
       body: JSON.stringify({
         from: fromAddress,
-        to: [email],
-        reply_to: env.ADMIN_EMAIL || 'kavish@risingbeyondborders.org',
+        to: [email.trim()],
+        reply_to: adminEmail,
         subject: userSubject,
         html: htmlBody,
         text: textBody,
