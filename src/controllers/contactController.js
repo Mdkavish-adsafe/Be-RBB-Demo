@@ -1,6 +1,6 @@
 import { validateContactForm } from '../validators/contactSchema.js';
 import { verifyTurnstileToken } from '../services/turnstileService.js';
-import { sendAdminNotification } from '../services/emailService.js';
+import { sendAdminNotification, sendUserConfirmation } from '../services/emailService.js';
 
 export async function contactController(c) {
   // 1. Parse body
@@ -32,18 +32,22 @@ export async function contactController(c) {
     }, 403);
   }
 
-  // 4. Send email
-  const emailResult = await sendAdminNotification(
-    { name, email, subject, message },
-    c.env
-  );
+  // 4. Send emails concurrently: Admin alert + User confirmation
+  const [adminEmailResult, userEmailResult] = await Promise.all([
+    sendAdminNotification({ name, email, subject, message }, c.env),
+    sendUserConfirmation({ name, email, subject, message }, c.env),
+  ]);
 
-  if (!emailResult.success) {
-    console.error('Email sending failed');
+  if (!adminEmailResult.success) {
+    console.error('Admin email sending failed:', adminEmailResult.error);
     return c.json({
       success: false,
       error: 'Failed to process your submission. Please try again later.',
     }, 500);
+  }
+
+  if (!userEmailResult.success) {
+    console.warn('User confirmation email warning:', userEmailResult.error);
   }
 
   // 5. Success
